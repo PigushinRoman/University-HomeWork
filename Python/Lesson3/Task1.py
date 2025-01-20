@@ -1,0 +1,2 @@
+answer = "Это {petSpecie} по кличке {petName}. Возраст: {petAge}"
+print(answer.format(petSpecie = input('Введите вид питомца:'),petName = input('Введите кличку питомца:'), petAge = input('Введите возраст питомца:')))
