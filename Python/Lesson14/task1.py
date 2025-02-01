@@ -10,4 +10,4 @@ def recursion(iterator = 0):
     print(my_list[iterator])
     return recursion(iterator + 1)
 
-print(recursion())
+recursion()
