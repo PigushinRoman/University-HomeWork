@@ -16,6 +16,7 @@ RIVER_LENGTH = 6
 FOREST_DENCITY = 45
 MAP_WIDTH = 30
 MAP_HEIGTH = 20
+POINTS_TO_LOSE = 10
 
 class Map:
 
@@ -60,7 +61,7 @@ class Map:
             if(heli.tank > 0):
                 self.cells[heli.x][heli.y] = 1
                 heli.points += 100
-                heli.globalScore += 100
+                heli.globalScore += 1
                 heli.tank -= 1
         if(self.cells[heli.x][heli.y] == 3):
             if(heli.points >= UPGRADE_COST):
@@ -77,7 +78,7 @@ class Map:
                 heli.health -= 1
         if(heli.health <= 0):
             os.system('cls')
-            print(f"YOU LOSE, YOUR SCORE: {heli.globalScore}")
+            print(f"Вы проиграли, пожаров потушено: {heli.globalScore}")
             exit(0)
     
     # ГЕНЕРАТОРЫ
@@ -118,7 +119,8 @@ class Map:
                 cell = self.cells[ri][ci]
                 if cell == 5:
                     self.cells[ri][ci] = 0
-                    heli.health -= 1
+                    if(heli.points >= POINTS_TO_LOSE):
+                        heli.points -= POINTS_TO_LOSE
         for i in range(1,randNum(1,5)):
             self.generate_fire()
     
