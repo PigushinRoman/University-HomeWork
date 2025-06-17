@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Synergy -> javascript</title>
+</head>
+<body>
+    <script>
+        function loadScripts(src){
+            return new Promise(function(resolve, reject){
+                let script = document.createElement('script');
+                script.src = src;
+
+                script.onload = () => resolve(script);
+                script.onerror = () => reject (Error(`Ошибка загрузки скрипта`));
+
+                document.head.append(script);
+            })
+        };
+        loadScripts("/src/first_task.js")
+            .then(function(script){
+                return loadScripts("/src/second_task.js");
+            })
+            .then(function(script){
+                return loadScripts("/src/third_task.js");
+            })
+            .then(function(script){
+                return loadScripts("/src/fifth_task.js");
+            })
+            .then(function(script){
+                addHeader();
+                addListOfEmployees();
+                addSquareContainer();
+                addForm();
+            })
+    </script>
+</body>
+</html>
