@@ -5,6 +5,10 @@ const imagesURI = {
 }
 
 const slider = document.querySelector('#image-container');
+const textContainer = document.querySelector('#image-counter');
+let slideIndex = 0;
+const slideCount = Object.keys(imagesURI).length;
+let slides;
 
 function defaultImageLoader(){
     for(key in imagesURI)
@@ -13,14 +17,15 @@ function defaultImageLoader(){
         image.src=imagesURI[key];
         slider.append(image) 
     }
+    slides = Array.from(slider.querySelectorAll('img'));
+    textContainer.innerText = `${slideIndex + 1} из ${slideCount}`
+
 }
 defaultImageLoader();
 
 const prevButton = document.querySelector('#control-left');
 const nextButton = document.querySelector('#control-right');
-let slideIndex = 0;
-const slides = Array.from(slider.querySelectorAll('img'));
-const slideCount = slides.length;
+ 
 
 prevButton.addEventListener('click', showPreviousSlide);
 nextButton.addEventListener('click', showNextSlide);
@@ -43,5 +48,6 @@ function updateSlider() {
       slide.style.display = 'none';
     }
   });
+  textContainer.innerText = `${slideIndex + 1} из ${slideCount}`
 }
 updateSlider();
