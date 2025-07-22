@@ -11,6 +11,8 @@
     box-sizing: border-box;
     user-select: none;
     font-family: "Open Sans";
+    text-decoration: none;
+    color: var(--white);
 }
 
 body{
@@ -20,7 +22,7 @@ body{
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    
+
 }
 
 .main-wrapper{
@@ -28,10 +30,6 @@ body{
     border-radius: 5px;
     padding: 15px;
     text-align: center;
-}
-
-h1,span{
-    color: var(--white);
 }
 span{
     font-weight: 500;
@@ -48,16 +46,12 @@ span{
 .image-container{
     flex-grow: 1;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 5px;
 }
 
 .control{
     min-height: 50px;
     min-width: 50px;
     background-color: var(--grey);
-    color: var(--white);
     display: flex;
     align-self: center;
     align-items: center;
@@ -74,7 +68,9 @@ span{
 }
 
 img{
-    max-width: 100%;
-    max-height: 100%;
-    object-fit:contain;
+    flex-grow: 1;
+    flex-shrink: 0;
+    flex-basis: 100%;
+    object-fit: cover;
+    scroll-snap-align: start;
 }

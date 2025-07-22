@@ -1,63 +1,47 @@
-//Реализую через обьект потому что на практике ссылки на картинки получаем с сервера.
 const imagesURI = {
     0:'./public/images/cat-1.jpg',
     1:'./public/images/cat-2.jpg',
     2:'./public/images/turtle.jpg'
 }
 
-let activeImage = 0;
+const slider = document.querySelector('#image-container');
 
-const controls = [document.getElementById('control-left'),document.getElementById('control-right')];
-
-controls.forEach(control=>{
-    control.addEventListener("click",(event)=>{
-        event.target.id === 'control-left' ? changeActiveImage(-1) : changeActiveImage(1);
-    })
-})
-
-function changeActiveImage(value)
-{
-    if(value === -1)
+function defaultImageLoader(){
+    for(key in imagesURI)
     {
-        if(activeImage > 0)
-        {
-            activeImage--;
-        }
-        else
-        {
-            activeImage = Object.keys(imagesURI).length - 1
-        }
+        const image = document.createElement('img');
+        image.src=imagesURI[key];
+        slider.append(image) 
     }
+}
+defaultImageLoader();
 
-    if(value === 1)
-    {
-        if(activeImage < Object.keys(imagesURI).length - 1)
-        {
-            activeImage++;
-        }
-        else{
-            activeImage = 0;
-        }
-        
-    }
-    drawActiveImage();
+const prevButton = document.querySelector('#control-left');
+const nextButton = document.querySelector('#control-right');
+let slideIndex = 0;
+const slides = Array.from(slider.querySelectorAll('img'));
+const slideCount = slides.length;
+
+prevButton.addEventListener('click', showPreviousSlide);
+nextButton.addEventListener('click', showNextSlide);
+
+function showPreviousSlide() {
+  slideIndex = (slideIndex - 1 + slideCount) % slideCount;
+  updateSlider();
 }
 
-function drawActiveImage()
-{
-    console.log(activeImage)
-    if(document.getElementById('current-image'))
-    {
-        const currentImage = document.getElementById('current-image')
-        currentImage.src= imagesURI[activeImage];
-    }
-    if(!document.getElementById('current-image')){
-        let image = document.createElement('img');
-        image.src=imagesURI[activeImage];
-        image.id='current-image';
-        document.getElementById('image-container').appendChild(image);
-    }
-    document.getElementById('image-counter').innerText = `${activeImage + 1} из ${Object.keys(imagesURI).length}`
+function showNextSlide() {
+  slideIndex = (slideIndex + 1) % slideCount;
+  updateSlider();
 }
 
-drawActiveImage();
+function updateSlider() {
+  slides.forEach((slide, index) => {
+    if (index === slideIndex) {
+      slide.style.display = 'block';
+    } else {
+      slide.style.display = 'none';
+    }
+  });
+}
+updateSlider();
